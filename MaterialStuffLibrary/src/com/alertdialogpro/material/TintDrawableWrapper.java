@@ -1,4 +1,5 @@
 package com.alertdialogpro.material;
+
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -8,51 +9,51 @@ import android.graphics.drawable.Drawable;
  * A {@link DrawableWrapper} which updates it's color filter using a {@link ColorStateList}.
  */
 class TintDrawableWrapper extends DrawableWrapper
-  {
-  private final ColorStateList  mTintStateList;
-  private final PorterDuff.Mode mTintMode;
-  private int                   mCurrentColor;
+{
+    private final ColorStateList  mTintStateList;
+    private final PorterDuff.Mode mTintMode;
+    private int                   mCurrentColor;
 
-  public TintDrawableWrapper(final Drawable drawable,final ColorStateList tintStateList)
+    public TintDrawableWrapper(final Drawable drawable,final ColorStateList tintStateList)
     {
-    this(drawable,tintStateList,TintManager.DEFAULT_MODE);
+        this(drawable,tintStateList,TintManager.DEFAULT_MODE);
     }
 
-  public TintDrawableWrapper(final Drawable drawable,final ColorStateList tintStateList,final PorterDuff.Mode tintMode)
+    public TintDrawableWrapper(final Drawable drawable,final ColorStateList tintStateList,final PorterDuff.Mode tintMode)
     {
-    super(drawable);
-    mTintStateList=tintStateList;
-    mTintMode=tintMode;
+        super(drawable);
+        mTintStateList=tintStateList;
+        mTintMode=tintMode;
     }
 
-  @Override
-  public boolean isStateful()
+    @Override
+    public boolean isStateful()
     {
-    return mTintStateList!=null&&mTintStateList.isStateful()||super.isStateful();
+        return mTintStateList!=null&&mTintStateList.isStateful()||super.isStateful();
     }
 
-  @Override
-  public boolean setState(final int[] stateSet)
+    @Override
+    public boolean setState(final int[] stateSet)
     {
-    boolean handled=super.setState(stateSet);
-    handled=updateTint(stateSet)||handled;
-    return handled;
+        boolean handled=super.setState(stateSet);
+        handled=updateTint(stateSet)||handled;
+        return handled;
     }
 
-  private boolean updateTint(final int[] state)
+    private boolean updateTint(final int[] state)
     {
-    if(mTintStateList!=null)
-      {
-      final int color=mTintStateList.getColorForState(state,mCurrentColor);
-      if(color!=mCurrentColor)
+        if(mTintStateList!=null)
         {
-        if(color!=Color.TRANSPARENT)
-          setColorFilter(color,mTintMode);
-        else clearColorFilter();
-        mCurrentColor=color;
-        return true;
+            final int color=mTintStateList.getColorForState(state,mCurrentColor);
+            if(color!=mCurrentColor)
+            {
+                if(color!=Color.TRANSPARENT)
+                    setColorFilter(color,mTintMode);
+                else clearColorFilter();
+                mCurrentColor=color;
+                return true;
+            }
         }
-      }
-    return false;
+        return false;
     }
-  }
+}

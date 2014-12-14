@@ -1,4 +1,5 @@
 package com.alertdialogpro.internal;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Layout;
@@ -11,48 +12,48 @@ import android.widget.TextView;
  * the text to the available space.
  */
 public class DialogTitle extends TextView
-  {
-  private static final int[] TEXT_APPEARANCE_ATTRS =new int[] {android.R.attr.textSize};
+{
+    private static final int[] TEXT_APPEARANCE_ATTRS =new int[] {android.R.attr.textSize};
 
-  public DialogTitle(final Context context,final AttributeSet attrs,final int defStyle)
+    public DialogTitle(final Context context,final AttributeSet attrs,final int defStyle)
     {
-    super(context,attrs,defStyle);
+        super(context,attrs,defStyle);
     }
 
-  public DialogTitle(final Context context,final AttributeSet attrs)
+    public DialogTitle(final Context context,final AttributeSet attrs)
     {
-    super(context,attrs);
+        super(context,attrs);
     }
 
-  public DialogTitle(final Context context)
+    public DialogTitle(final Context context)
     {
-    super(context);
+        super(context);
     }
 
-  @Override
-  protected void onMeasure(final int widthMeasureSpec,final int heightMeasureSpec)
+    @Override
+    protected void onMeasure(final int widthMeasureSpec,final int heightMeasureSpec)
     {
-    super.onMeasure(widthMeasureSpec,heightMeasureSpec);
-    final Layout layout=getLayout();
-    if(layout!=null)
-      {
-      final int lineCount=layout.getLineCount();
-      if(lineCount>0)
+        super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+        final Layout layout=getLayout();
+        if(layout!=null)
         {
-        final int ellipsisCount=layout.getEllipsisCount(lineCount-1);
-        if(ellipsisCount>0)
-          {
-          setSingleLine(false);
-          setMaxLines(2);
-          final TypedArray a=getContext().obtainStyledAttributes(null,TEXT_APPEARANCE_ATTRS,android.R.attr.textAppearanceMedium,android.R.style.TextAppearance_Medium);
-          final int textSize=a.getDimensionPixelSize(0,0);
-          if(textSize!=0)
-            // textSize is already expressed in pixels
-            setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
-          a.recycle();
-          super.onMeasure(widthMeasureSpec,heightMeasureSpec);
-          }
+            final int lineCount=layout.getLineCount();
+            if(lineCount>0)
+            {
+                final int ellipsisCount=layout.getEllipsisCount(lineCount-1);
+                if(ellipsisCount>0)
+                {
+                    setSingleLine(false);
+                    setMaxLines(2);
+                    final TypedArray a=getContext().obtainStyledAttributes(null,TEXT_APPEARANCE_ATTRS,android.R.attr.textAppearanceMedium,android.R.style.TextAppearance_Medium);
+                    final int textSize=a.getDimensionPixelSize(0,0);
+                    if(textSize!=0)
+                        // textSize is already expressed in pixels
+                        setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
+                    a.recycle();
+                    super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+                }
+            }
         }
-      }
     }
-  }
+}
